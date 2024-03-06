@@ -18,6 +18,10 @@ app.get('/home-server', (req, res) => {
     res.sendFile(path.join(__dirname, './public/html/home-server.html'))
 })
 
+app.get('/test', (req, res) => {
+    res.send('test')
+})
+
 io.on('connection', (socket) => {
   console.log(`user connection: ${socket.id}`)
   socket.on('disconnect', function () {
