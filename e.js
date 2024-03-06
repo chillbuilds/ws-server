@@ -23,14 +23,18 @@ io.on('connection', (socket) => {
     data = JSON.parse(data)
     if(data.service == 'messaging'){
         console.log('notify the pi')
-    }else if(data.service == 'home-server-connection'){
-        homeServerConnected = true
     }
     else{
         console.log(data)
     }
     if(homeServerConnected == false){
         socket.emit('message', 'failed to send: messaging receiver offline')
+    }
+  })
+
+  socket.on('pi-connect', (data) => {
+    if(data == 'online'){
+        homeServerConnected = true
     }
   })
 })
