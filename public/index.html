@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>node express server</title>
+    <title>ws server</title>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
     
     <div>
-        test
+        <div id="user">
+            <input type="text" id="user-name-input" value="will">
+        </div>
+        <div>
+            <textarea id="text-input"></textarea>
+        </div>
+        <div id="sendBtn">
+            send
+        </div>
     </div>
 
     <script src="./scripts/jquery.js"></script>
-    <script src='/socket.io/socket.io.js'></script>
+    <script src='/scripts/socketio.js'></script>
     <script src="./scripts/script.js"></script>
+
 </body>
 </html>

@@ -8,13 +8,22 @@ const port = process.env.PORT || 8080
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'))
+  res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
 io.on('connection', (socket) => {
-  console.log('user connected')
+  console.log(`user connection: ${socket.id}`);
   socket.on('disconnect', function () {
     console.log('user disconnected')
+  })
+
+  socket.on('message', (data) => {
+    data = JSON.parse(data)
+    if(data.service == 'messaging'){
+        console.log('notify the pi')
+    }else{
+        console.log(data)
+    }
   })
 })
 
