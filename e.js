@@ -5,6 +5,8 @@ const io = require('socket.io')(server)
 const path = require('path')
 const port = process.env.PORT || 8080
 
+let homeServerConnected = false
+
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
@@ -12,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  console.log(`user connection: ${socket.id}`);
+  console.log(`user connection: ${socket.id}`)
   socket.on('disconnect', function () {
     console.log('user disconnected')
   })
@@ -21,8 +23,14 @@ io.on('connection', (socket) => {
     data = JSON.parse(data)
     if(data.service == 'messaging'){
         console.log('notify the pi')
-    }else{
+    }else if(data.service == 'home-server-connection'){
+        homeServerConnected = true
+    }
+    else{
         console.log(data)
+    }
+    if(homeServerConnected == false){
+        socket.emit('message', 'failed to send: messaging receiver offline')
     }
   })
 })
